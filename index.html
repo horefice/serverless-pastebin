@@ -13,7 +13,7 @@
 		margin: 0;
 		width: 100%;
 		overflow-x: hidden;
-        font: normal large/1.4 monospace;
+		font: normal large/1.4 monospace;
 		color: #333;
 		background-color: #fff;
 		-webkit-font-smoothing: antialiased;
@@ -30,28 +30,29 @@
 <body>
 	<div class="container">
 		<h1>Paste</h1>
-        <form id="paste">
-            <label for="data">Data</label><br>
-            <textarea name="data" rows="10" maxlength="9999" style="width: calc(80vw);" required autofocus></textarea><br>
-            <label for="alias">Alias</label><br>
-            <input type="text" name="alias"><br><br>
-            <input type="submit">
-        </form> 
-        <div id="link"></div>
+		<form id="paste">
+			<label for="data">Data</label><br>
+			<textarea id="data" name="data" rows="10" maxlength="9999" style="width: calc(80vw);" autofocus></textarea><br>
+			<label for="alias">Alias</label><br>
+			<input type="text" name="alias" required><br><br>
+			<input type="submit">
+		</form> 
 	</div>
 </body>
 <script>
-    var form = document.getElementById("paste");
-    form.onsubmit = async (e) => {
-        e.preventDefault();
-        let response = await fetch("https://18ylhq4gne.execute-api.eu-west-1.amazonaws.com/default/paste-lambda", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(Object.fromEntries(new FormData(form)))
+	var form = document.getElementById("paste");
+	form.onsubmit = async (e) => {
+		e.preventDefault();
+        let formData = Object.fromEntries(new FormData(form));
+        let url = "https://18ylhq4gne.execute-api.eu-west-1.amazonaws.com/default/paste-lambda";
+
+		let response = !formData.data ? await fetch(url + "?alias=" + encodeURIComponent(formData.alias)) : await fetch(url, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(formData)
         })
-        let text = await response.json();
-        document.querySelector("#link").innerHTML = text;
-    };
+		let text = await response.json();
+        console.log(text);
+		document.querySelector("#data").innerHTML = text;
+	};
 </script>
