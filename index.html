@@ -35,24 +35,35 @@
             <textarea id="data" name="data" rows="10" maxlength="9999" style="width: calc(80vw);" autofocus></textarea><br>
             <label for="alias">Alias</label><br>
             <input type="text" name="alias" required><br><br>
-            <input type="submit">
+            <input id="submit" type="submit">
         </form> 
+        <div id="error"></div>
     </div>
 </body>
 <script>
     var form = document.getElementById("paste");
     form.onsubmit = async (e) => {
         e.preventDefault();
-        let formData = Object.fromEntries(new FormData(form));
-        let url = "https://18ylhq4gne.execute-api.eu-west-1.amazonaws.com/default/paste-lambda";
+        try {
+            var submit = document.getElementById("submit");
+            submit.disabled = true;
 
-        let response = !formData.data ? await fetch(url + "?alias=" + encodeURIComponent(formData.alias)) : await fetch(url, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(formData)
-        })
-        let text = await response.json();
-        console.log(text);
-        document.querySelector("#data").innerHTML = text.Item.data;
+            let formData = Object.fromEntries(new FormData(form));
+            let url = "https://18ylhq4gne.execute-api.eu-west-1.amazonaws.com/default/paste-lambda";
+
+            let response = !formData.data ? await fetch(url + "?alias=" + encodeURIComponent(formData.alias)) : await fetch(url, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(formData)
+            })
+            let responseData = await response.json();
+            console.log(responseData);
+
+            if (!!responseData.Item) document.getElementById("data").innerHTML = responseData.Item.data;
+            submit.disabled = false;
+        } catch (error) {
+            console.log(error);
+            document.getElementById("error").innerHTML = error;
+        }
     };
 </script>
