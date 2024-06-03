@@ -45,8 +45,8 @@
     form.onsubmit = async (e) => {
         e.preventDefault();
         try {
-            var submit = document.getElementById("submit");
-            submit.disabled = true;
+            document.getElementById("submit").disabled = true;
+            document.getElementById("error").innerHTML = "";
 
             let formData = Object.fromEntries(new FormData(form));
             let url = "https://18ylhq4gne.execute-api.eu-west-1.amazonaws.com/default/paste-lambda";
@@ -59,11 +59,11 @@
             let responseData = await response.json();
             console.log(responseData);
 
-            if (!!responseData.Item) document.getElementById("data").innerHTML = responseData.Item.data;
-            submit.disabled = false;
+            if (!!responseData.Item) document.getElementById("data").value = responseData.Item.data;
         } catch (error) {
             console.log(error);
             document.getElementById("error").innerHTML = error;
         }
+        document.getElementById("submit").disabled = false;
     };
 </script>
