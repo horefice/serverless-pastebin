@@ -34,7 +34,7 @@
             <label for="data">Data</label><br>
             <textarea id="data" name="data" rows="10" maxlength="9999" style="width: calc(80vw);" autofocus></textarea><br>
             <label for="alias">Alias</label><br>
-            <input type="text" name="alias" required><br><br>
+            <input type="text" id="alias" name="alias" required><br><br>
             <input id="submit" type="submit">
         </form> 
         <div id="error"></div>
@@ -59,7 +59,7 @@
             let responseData = await response.json();
             console.log(responseData);
 
-            if (!!responseData.Item) document.getElementById("data").value = responseData.Item.data;
+            if (!!responseData.data) document.getElementById("data").value = responseData.data;
         } catch (error) {
             console.log(error);
             document.getElementById("error").innerHTML = error;
