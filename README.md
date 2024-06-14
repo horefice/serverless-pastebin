@@ -1,14 +1,15 @@
-# Serverless Paste Bin
+# Serverless Pastebin
 
-Welcome to the Serverless Paste Bin project! This project is a web application hosted on GitHub Pages, allowing users to create and retrieve data with ease. Below you'll find detailed information about the features and infrastructure of this application.
+Welcome to the Serverless Pastebin project! This project is a web application hosted on GitHub Pages, allowing users to create and retrieve data with ease. Below you'll find detailed information about the features and infrastructure of this application.
 
 ## Features
 
 - **User-friendly Web Interface**: Simple and intuitive webpage hosted on GitHub Pages for creating and retrieving data.
 - **Custom Keys**: Users can select custom keys for their data for easier retrieval.
 - **Data Expiry**: Data are set to expire after 2 weeks by default.
-- **API Throttling**: An API Gateway with throttling capabilities ensures the service remains performant and fair to all users.
-- **Least Privelege Principle**: IAM roles and policies following the least privilege principle.
+- **Auto-scalable Database**: Database is auto-scaled to handle the amount of data being read or writen.
+- **API Throttling**: An API with throttling capabilities ensures the service remains performant and fair to all users.
+- **Least Privelege Principle**: IAM roles and policies follows the least privilege principle.
 - **Error Notifications**: Any failures in the lambda function trigger an event to an SNS topic, notifying subscribed users via email.
 
 ## Infrastructure
@@ -38,8 +39,8 @@ This application leverages a serverless architecture hosted on AWS, utilizing th
 
 1. **Clone the Repository**:
    ```sh
-   git clone https://github.com/horefice/serverless-paste.git
-   cd serverless-paste
+   git clone https://github.com/horefice/serverless-pastebin.git
+   cd serverless-pastebin
    ```
 
 2. **Setup AWS Credentials**: Ensure your AWS credentials are configured. You can set them up using the AWS CLI:
@@ -75,4 +76,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
-Thank you for using the Serverless Paste Bin project! If you have any questions or need assistance, feel free to open an issue in the repository.
+Thank you for using the Serverless Pastebin project! If you have any questions or need assistance, feel free to open an issue in the repository.
