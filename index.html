@@ -33,9 +33,9 @@
         <form id="paste">
             <label for="data">Data</label><br>
             <textarea id="data" name="data" rows="10" maxlength="9999" style="width: calc(80vw);" autofocus></textarea><br>
-            <label for="alias">Alias</label><br>
-            <input type="text" id="alias" name="alias" required><br><br>
-            <input id="submit" type="submit">
+            <label for="key">Key</label><br>
+            <input type="text" id="key" name="key" maxlength="10" required><br><br>
+            <input id="get" type="submit" value="Get Data">&nbsp;<input id="post" type="submit" value="Post Data">
         </form> 
         <div id="error"></div>
     </div>
@@ -45,13 +45,14 @@
     form.onsubmit = async (e) => {
         e.preventDefault();
         try {
-            document.getElementById("submit").disabled = true;
+            document.getElementById("get").disabled = true;
+            document.getElementById("post").disabled = true;
             document.getElementById("error").innerHTML = "";
 
             let formData = Object.fromEntries(new FormData(form));
-            let url = "https://18ylhq4gne.execute-api.eu-west-1.amazonaws.com/default/paste-lambda";
+            let url = "https://2vskjmu4ak.execute-api.eu-west-1.amazonaws.com/default/paste_api";
 
-            let response = !formData.data ? await fetch(url + "?alias=" + encodeURIComponent(formData.alias)) : await fetch(url, {
+            let response = !formData.data ? await fetch(url + "?key=" + encodeURIComponent(formData.key)) : await fetch(url, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(formData)
@@ -64,6 +65,7 @@
             console.log(error);
             document.getElementById("error").innerHTML = error;
         }
-        document.getElementById("submit").disabled = false;
+        document.getElementById("get").disabled = false;
+        document.getElementById("post").disabled = false;
     };
 </script>
