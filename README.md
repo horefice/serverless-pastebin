@@ -8,6 +8,7 @@ Welcome to the Serverless Paste Bin project! This project is a web application h
 - **Custom Keys**: Users can select custom keys for their data for easier retrieval.
 - **Data Expiry**: Data are set to expire after 2 weeks by default.
 - **API Throttling**: An API Gateway with throttling capabilities ensures the service remains performant and fair to all users.
+- **Least Privelege Principle**: IAM roles and policies following the least privilege principle.
 - **Error Notifications**: Any failures in the lambda function trigger an event to an SNS topic, notifying subscribed users via email.
 
 ## Infrastructure
@@ -48,8 +49,8 @@ This application leverages a serverless architecture hosted on AWS, utilizing th
 
 3. **Deploy Infrastructure**:
    ```sh
-   zip tf/lambda_function.zip lambda/function.py
    cd tf
+   zip lambda_function.zip lambda_function.py
    terraform init
    terraform apply
    ```

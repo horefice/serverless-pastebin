@@ -50,9 +50,9 @@
             document.getElementById("error").innerHTML = "";
 
             let formData = Object.fromEntries(new FormData(form));
-            let url = "https://2vskjmu4ak.execute-api.eu-west-1.amazonaws.com/default/paste_api";
+            let url = "https://6yagy49iwl.execute-api.eu-west-1.amazonaws.com/default/paste_api";
 
-            let response = !formData.data ? await fetch(url + "?key=" + encodeURIComponent(formData.key)) : await fetch(url, {
+            let response = e.submitter.id == "get" ? await fetch(url + "?key=" + encodeURIComponent(formData.key)) : await fetch(url, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(formData)
